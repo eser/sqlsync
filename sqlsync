@@ -5,9 +5,6 @@ $tServices = require __DIR__ . "/src/bootstrap.php";
 
 // exception handling
 set_exception_handler(function ($uException) use ($tServices) {
-    // TODO: Return HTTP status 403 within Response class.
-    header("HTTP/1.0 403 Forbidden");
-
     $tFormatter = $tServices["formatter"];
     $tFormatter->writeHeader(2, "Error");
     $tFormatter->write($uException->getMessage());
@@ -18,13 +15,24 @@ set_exception_handler(function ($uException) use ($tServices) {
 // set up server class
 $tServer = new \SqlSync\Server\Server($tServices);
 
-// get database from url part: ?db=
-$tDatabase = rtrim($tServices["request"]->get("db", ""));
-
 // set output
-$tHandle = fopen("php://output", "wb");
+$tHandle = tmpfile();
 
-// start dumping database
-$tServer->dump($tDatabase, $tHandle);
+// start dumping database to a local file
+$tServer->dump("airmall", $tHandle);
+
+// seek to the beginning
+fseek($tHandle, 0);
+
+// set up client class
+$tClient = new \SqlSync\Client\Client($tServices);
+
+// execute sql at the client
+$tClient->connect();
+$tClient->dropAndCreateDatabase("airmall");
+$tClient->executeStream($tHandle);
+
+// close and destroy the file
+fclose($tHandle);
 
 exit(0);

@@ -51,4 +51,5 @@ $tServices["log"] = $tLog;
 $tServices["request"] = $tRequest;
 $tServices["formatter"] = $tFormatter;
 
+// return dependency injection container
 return $tServices;

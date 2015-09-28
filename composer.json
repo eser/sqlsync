@@ -29,11 +29,11 @@
         "scabbiafw/scabbia2-formatters": "*",
         "scabbiafw/scabbia2-lightstack": "*",
         "scabbiafw/scabbia2-services": "*",
+        "scabbiafw/scabbia2-tasks": "*",
         "monolog/monolog": "~1.13.1",
         "dg/mysql-dump": "~1.3.0"
     },
     "require-dev": {
-        "scabbiafw/scabbia2-tasks": "*",
         "scabbiafw/scabbia2-testing": "*",
         "squizlabs/php_codesniffer": "2.*"
     },

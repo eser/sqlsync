@@ -1,9 +1,19 @@
 <?php return [
     "logpath" => "sqlsync.log",
-    "database" => [
-        "host"     => "localhost",
-        "username" => "root",
-        "password" => "",
-        "commands" => "SET NAMES 'utf8'"
+    "server" => [
+        "database" => [
+            "host"     => "domain.tld",
+            "username" => "root",
+            "password" => "",
+            "commands" => "SET NAMES 'utf8'"
+        ]
+    ],
+    "client" => [
+        "database" => [
+            "host"     => "localhost",
+            "username" => "root",
+            "password" => "",
+            "commands" => "SET NAMES 'utf8'"
+        ]
     ]
 ];
