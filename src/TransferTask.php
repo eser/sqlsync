@@ -40,6 +40,7 @@ class TransferTask extends TaskBase
 
         // set up server class
         $tServer = new Server($this->services);
+        $tServer->connect();
 
         // set output
         $tHandle = tmpfile();

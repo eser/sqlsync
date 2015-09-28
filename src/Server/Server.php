@@ -22,9 +22,13 @@ class Server
         $this->db = new Database($this->services["config"]["server"]["database"]);
     }
 
-    public function dump($uDatabase, $tHandle)
+    public function connect()
     {
         $this->db->connect();
+    }
+
+    public function dump($uDatabase, $tHandle)
+    {
         if ($this->db->resource->select_db($uDatabase) === false) {
             throw new LogicException("database not found - {$uDatabase}");
         }

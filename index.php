@@ -5,6 +5,7 @@ $tServices = require __DIR__ . "/src/bootstrap.php";
 
 // set up server class
 $tServer = new \SqlSync\Server\Server($tServices);
+$tServer->connect();
 
 // get database from url part: ?db=
 $tDatabase = rtrim($tServices["request"]->get("db", ""));
