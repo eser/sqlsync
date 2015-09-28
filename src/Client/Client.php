@@ -41,12 +41,10 @@ class Client
     {
         $tBuffer = [];
 
-        while (!feof($uHandle))
-        {
+        while (!feof($uHandle)) {
             $tBuffer[] = fgets($uHandle);
 
-            if (preg_match("~" . preg_quote($uDelimiter, "~") . "\\s*$~iS", end($tBuffer)) === 1)
-            {
+            if (preg_match("~" . preg_quote($uDelimiter, "~") . "\\s*$~iS", end($tBuffer)) === 1) {
                 $tSql = implode("", $tBuffer);
                 $this->db->resource->query($tSql);
 
