@@ -5,6 +5,7 @@ namespace SqlSync\Server;
 use SqlSync\Common\Database;
 use Scabbia\Services\Services;
 use MySQLDump;
+use LogicException;
 
 class Server
 {
@@ -24,7 +25,9 @@ class Server
     public function dump($uDatabase, $tHandle)
     {
         $this->db->connect();
-        $this->db->resource->select_db($uDatabase);
+        if ($this->db->resource->select_db($uDatabase) === false) {
+            throw new LogicException("database not found - {$uDatabase}");
+        }
 
         $tDump = new MySQLDump($this->db->resource);
         $tDump->write($tHandle);

@@ -4,6 +4,7 @@ namespace SqlSync\Client;
 
 use SqlSync\Common\Database;
 use Scabbia\Services\Services;
+use LogicException;
 
 class Client
 {
@@ -29,7 +30,11 @@ class Client
     {
         $this->db->resource->query("DROP DATABASE IF EXISTS `{$uDatabase}`");
         $this->db->resource->query("CREATE DATABASE `{$uDatabase}`");
+
         $this->db->resource->select_db($uDatabase);
+        if ($this->db->resource->select_db($uDatabase) === false) {
+            throw new LogicException("database not found - {$uDatabase}");
+        }
     }
 
     public function executeStream($uHandle, $uDelimiter = ";")
